@@ -107,6 +107,9 @@
     "odolbeau/rabbit-mq-admin-toolkit": {
         "version": "v4.0.2"
     },
+    "php-amqplib/php-amqplib": {
+        "version": "v2.7.2"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },

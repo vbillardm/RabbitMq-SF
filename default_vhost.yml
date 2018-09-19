@@ -1,0 +1,17 @@
+# default_vhost.yml
+'/':
+    parameters:
+        with_dl: false # If true, all queues will have a dl and the corresponding mapping with the exchange "dl"
+        with_unroutable: false # If true, all exchange will be declared with an unroutable config
+
+    exchanges:
+        default:
+            type: direct
+            durable: true
+
+    queues:
+        order_complete:
+            durable: true
+            bindings:
+                - exchange: default
+                  routing_key: order_complete
