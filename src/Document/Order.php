@@ -34,7 +34,7 @@ class Order
      */
     protected $updated_at;
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }

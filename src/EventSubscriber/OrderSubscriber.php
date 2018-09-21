@@ -20,7 +20,7 @@ class OrderSubscriber implements EventSubscriberInterface
     public function onOrderConfirmed($event)
     {
         /*** @var $event OrderConfirmedEvent */
-        $message = new Message($event->getOrder());
+        $message = new Message($event->getOrder()->getId());
         $this->swarrotPublisher->publish('order_complete_publisher', $message);
 
     }

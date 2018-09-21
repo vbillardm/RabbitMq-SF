@@ -1,6 +1,5 @@
 swarrot:
     provider: pecl # pecl or amqp_lib
-    default_command: swarrot.command.base
     connections:
         rabbitmq:
             host: '%rabbitmq_host%'
