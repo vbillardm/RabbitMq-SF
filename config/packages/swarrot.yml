@@ -1,0 +1,24 @@
+swarrot:
+    provider: pecl # pecl or amqp_lib
+    default_command: swarrot.command.base
+    connections:
+        rabbitmq:
+            host: '%rabbitmq_host%'
+            port: '%rabbitmq_port%'
+            login: '%rabbitmq_login%'
+            password: '%rabbitmq_password%'
+            vhost: '/'
+    consumers:
+        order_complete: # name of the consumer
+            processor: App\Processor\orderComplete # name of the service
+            extras:
+                poll_interval: 500000
+                requeue_on_error: false
+            middleware_stack:
+                - configurator: swarrot.processor.exception_catcher
+                - configurator: swarrot.processor.ack
+    messages_types:
+        order_complete_publisher:
+            connection: rabbitmq
+            exchange: default
+            routing_key: order_complete

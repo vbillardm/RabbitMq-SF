@@ -5,6 +5,13 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    rabbitmq_host: '127.0.0.1'
+    rabbitmq_user: 'guest'
+    rabbitmq_password: 'guest'
+    rabbitmq_login: 'guest'
+    rabbitmq_statuslayer_vhost: '/'
+    rabbitmq_port: 5672
+    mongodb_server: "mongodb://localhost:27017"
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +36,4 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    Swarrot\SwarrotBundle\Broker\Publisher: '@swarrot.publisher'
