@@ -2,10 +2,10 @@ swarrot:
     provider: pecl # pecl or amqp_lib
     connections:
         rabbitmq:
-            host: '%rabbitmq_host%'
-            port: '%rabbitmq_port%'
-            login: '%rabbitmq_login%'
-            password: '%rabbitmq_password%'
+            host: '%env(RABBITMQ_HOST)%'
+            port: '%env(int:RABBITMQ_PORT)%'
+            login: '%env(RABBITMQ_LOGIN)%'
+            password: '%env(RABBITMQ_PASSWORD)%'
             vhost: '/'
     consumers:
         order_complete: # name of the consumer

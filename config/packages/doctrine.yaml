@@ -31,7 +31,7 @@ doctrine:
 doctrine_mongodb:
     connections:
         default:
-            server: "%mongodb_server%"
+            server: "%env(MONGODB_SERVER)%"
             options: {}
     default_database: elevenTest
     document_managers:
