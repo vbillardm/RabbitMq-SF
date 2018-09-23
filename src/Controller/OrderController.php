@@ -7,8 +7,10 @@ use App\Document\Order;
 use App\Event\OrderConfirmedEvent;
 use App\EventSubscriber\OrderSubscriber;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OrderController extends controller
@@ -32,23 +34,25 @@ class OrderController extends controller
 
     /**
      * @REST\Post("order/{id}/confirmed")
+     * @ParamConverter("order", class="Order")
+     * @param Order $order
+     * @param EventDispatcherInterface $dispatcher
+     * @param OrderSubscriber $orderSubscriber
+     * @param OrderConfirmedEvent $confirmedEvent
+     * @return JsonResponse
      */
-    public function confirmOrder($id)
+    public function confirmOrder(Order $order, EventDispatcherInterface $dispatcher, OrderSubscriber $orderSubscriber, OrderConfirmedEvent $confirmedEvent)
     {
-        $dispatcher = new EventDispatcher();
-        $orderSubscriber = new OrderSubscriber($this->get('swarrot.publisher'));
-        $dispatcher->addSubscriber($orderSubscriber);
 
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $order = $dm->getRepository("App:Order")->find($id);
 
         /** $order Order **/
         $order->setStatus(Order::STATUS["confirmed"]);
         $dm->persist($order);
         $dm->flush();
 
-        $event = new OrderConfirmedEvent($order);
-        $dispatcher->dispatch(OrderConfirmedEvent::NAME, $event);
+
+        $dispatcher->dispatch(OrderConfirmedEvent::NAME, $confirmedEvent);
 
         return new JsonResponse(array('Order' => 'Confirmed'), 201);
     }
