@@ -9,7 +9,6 @@ use App\EventSubscriber\OrderSubscriber;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -34,7 +33,7 @@ class OrderController extends controller
 
     /**
      * @REST\Post("order/{id}/confirmed")
-     * @ParamConverter("order", class="Order")
+     * @ParamConverter("order", class="App:Order")
      * @param Order $order
      * @param EventDispatcherInterface $dispatcher
      * @param OrderSubscriber $orderSubscriber
@@ -50,7 +49,6 @@ class OrderController extends controller
         $order->setStatus(Order::STATUS["confirmed"]);
         $dm->persist($order);
         $dm->flush();
-
 
         $dispatcher->dispatch(OrderConfirmedEvent::NAME, $confirmedEvent);
 
