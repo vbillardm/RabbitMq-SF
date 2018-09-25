@@ -23,4 +23,9 @@ class OrderConfirmedEvent extends Event
     {
         return $this->order;
     }
+
+    public function setOrder(Order $order)
+    {
+        $this->order = $order;
+    }
 }

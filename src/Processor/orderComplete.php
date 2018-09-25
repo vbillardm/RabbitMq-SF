@@ -22,11 +22,11 @@ class orderComplete implements ProcessorInterface
             ->setBody(
                 $this->engine->render(
                     'Order/orderConfirmed.html.twig',
-                    array('id' => $message)
+                    array('id' => $message->getBody())
                 ),
                 'text/html'
             );
 
-        $this->mailer->send($email);
+        return $this->mailer->send($email);
     }
 }
