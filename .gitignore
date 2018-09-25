@@ -2,6 +2,7 @@
 ###> symfony/framework-bundle ###
 /.env
 .idea
+
 /public/bundles/
 /var/
 /vendor/
@@ -17,5 +18,4 @@
 ###< symfony/web-server-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
-###< phpunit/phpunit ###
+

@@ -15,7 +15,6 @@ class ConsumerTest extends TestCase
         new orderComplete(new \stdClass(), new \stdClass());
     }
 
-
     public function testSendMail()
     {
         $swift = $this->getMockBuilder(\Swift_Mailer::class)
@@ -31,7 +30,7 @@ class ConsumerTest extends TestCase
         $message = new Message("test");
         $email = $consumer->process($message, array());
 
-dump($consumer->process($message, array()));
+        dump($consumer->process($message, array()));
 
         $this->assertEquals(1, $email);
 
