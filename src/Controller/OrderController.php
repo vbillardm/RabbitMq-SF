@@ -40,7 +40,7 @@ class OrderController extends controller
      * @param OrderConfirmedEvent $confirmedEvent
      * @return JsonResponse
      */
-    public function confirmOrder(Order $order, EventDispatcherInterface $dispatcher, OrderConfirmedEvent $confirmedEvent)
+    public function confirmOrder(Order $order, EventDispatcherInterface $dispatcher)
     {
 
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -50,8 +50,8 @@ class OrderController extends controller
         $dm->persist($order);
         $dm->flush();
 
-        $confirmedEvent->setOrder($order);
-        $dispatcher->dispatch(OrderConfirmedEvent::NAME, $confirmedEvent);
+        $event = new OrderConfirmedEvent($order);
+        $dispatcher->dispatch(OrderConfirmedEvent::NAME, $event);
 
         return new JsonResponse(array('Order' => 'Confirmed'), 200);
     }

@@ -30,8 +30,6 @@ class ConsumerTest extends TestCase
         $message = new Message("test");
         $email = $consumer->process($message, array());
 
-        dump($consumer->process($message, array()));
-
         $this->assertEquals(1, $email);
 
     }
