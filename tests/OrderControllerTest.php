@@ -8,13 +8,14 @@
 
 namespace App\Tests;
 
+use App\Document\Order;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
 
 class OrderControllerTest extends  WebTestCase
 {
-
+        // @todo add provider
     public function testOrderConfirmed()
     {
         $client = static::createClient();
@@ -23,5 +24,4 @@ class OrderControllerTest extends  WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
-
 }

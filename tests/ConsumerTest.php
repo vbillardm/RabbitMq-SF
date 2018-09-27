@@ -25,12 +25,25 @@ class ConsumerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $message = $this->getMockBuilder(Message::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $message->method("getBody")->willReturn("testBody");
+
+        $email = $this->getMockBuilder(\Swift_Message::class)
+            ->disableOriginalConstructor()
+            ->setConstructorArgs(["Hello Email", "testBody"])
+            ->getMock();
+
+
+        $swift->expects($this->once())
+            ->method("send")
+            ->with($email)
+            ->willReturn(1);
+
         $consumer = new orderComplete($swift, $templating);
-
-        $message = new Message("test");
-        $email = $consumer->process($message, array());
-
-        $this->assertEquals(1, $email);
+        $response = $consumer->process($message, array());
 
     }
 }
