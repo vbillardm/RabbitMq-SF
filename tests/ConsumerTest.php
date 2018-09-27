@@ -33,9 +33,10 @@ class ConsumerTest extends TestCase
 
         $email = $this->getMockBuilder(\Swift_Message::class)
             ->disableOriginalConstructor()
-            ->setConstructorArgs(["Hello Email", "testBody"])
+            ->setConstructorArgs(["Hello Email", "testBody", 'text/html'])
             ->getMock();
 
+        $email->method("setTo")->willReturn("victorbillardmadrieres@gmail.com");
 
         $swift->expects($this->once())
             ->method("send")

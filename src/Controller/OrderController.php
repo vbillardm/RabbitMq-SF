@@ -55,5 +55,4 @@ class OrderController extends controller
 
         return new JsonResponse(array('Order' => 'Confirmed'), 200);
     }
-
 }
